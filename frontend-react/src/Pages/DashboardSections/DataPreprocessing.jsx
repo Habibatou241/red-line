@@ -49,9 +49,9 @@ const DataPreprocessing = () => {
   const renderOptions = (operation) => (
     <div className="ml-4 space-y-2 mt-2">
       <div className="flex items-center space-x-2">
-        <span className="w-20 text-[#8B4513]">Type:</span>
+        <span className="w-20 text-[#8B4513] text-xs">Type:</span>
         <select 
-          className="flex-1 p-2 border rounded-lg text-[#8B4513]"
+          className="flex-1 p-1.5 border rounded-lg text-[#8B4513] text-xs"
           value={selectedTypes[operation]}
           onChange={(e) => handleTypeChange(operation, e.target.value)}
           placeholder="Select Type"
@@ -65,9 +65,9 @@ const DataPreprocessing = () => {
       
       {selectedTypes[operation] && (operation === 'outliers' || selectedTypes[operation] !== 'Drop') && (
         <div className="flex items-center space-x-2">
-          <span className="w-20 text-[#8B4513]">Method:</span>
+          <span className="w-20 text-[#8B4513] text-xs">Method:</span>
           <select 
-            className="flex-1 p-2 border rounded-lg text-[#8B4513]"
+            className="flex-1 p-1.5 border rounded-lg text-[#8B4513] text-xs"
             value={selectedMethods[operation]}
             onChange={(e) => setSelectedMethods({ ...selectedMethods, [operation]: e.target.value })}
           >
@@ -123,18 +123,41 @@ const DataPreprocessing = () => {
     ]
   };
 
+  const calculateDatasetStats = (dataset) => {
+    return {
+      before: {
+        columns: dataset.columns.length,
+        rows: dataset.data.length,
+        missingValues: dataset.data.flat().filter(val => val === null || val === undefined || val === '').length,
+        duplicates: dataset.data.length - new Set(dataset.data.map(row => JSON.stringify(row))).size
+      },
+      after: {
+        columns: dataset.columns.length,
+        rows: dataset.data.length,
+        missingValues: 0,
+        duplicates: 0
+      }
+    };
+  };
+
   return (
     <div className="p-6 flex-1 bg-[#FFF3E0]">
-      <h2 className="text-3xl font-semibold text-[#8B4513] text-center mb-8">
+      <h2 className="text-2xl font-semibold text-[#8B4513] text-center mb-4">
         Data Preprocessing
       </h2>
-      
+
+      <div className="mb-8">
+        <h3 className="text-xl font-semibold text-[#8B4513] text-center">
+          Data Cleaning and Feature Engineering
+        </h3>
+      </div>
+
       <div className="flex gap-6">
         {/* Dataset Overview - Left Column (2/3) */}
         <div className="w-2/3 bg-white rounded-lg p-6 shadow-sm">
-          <h3 className="text-xl font-semibold text-[#8B4513] mb-4">Dataset Overview</h3>
+          <h3 className="text-lg font-semibold text-[#8B4513] mb-4">Dataset Overview</h3>
           <div className="overflow-x-auto">
-            <table className="min-w-full">
+            <table className="min-w-full mb-6 text-xs">
               <thead>
                 <tr>
                   {sampleDataset.columns.map((column, index) => (
@@ -156,48 +179,69 @@ const DataPreprocessing = () => {
                 ))}
               </tbody>
             </table>
+            
+            <h3 className="text-lg font-semibold text-[#8B4513] my-6">Preprocessed Dataset Recap</h3>
+              
+            {/* Statistics table */}
+            <table className="min-w-full mt-6 text-xs">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2 bg-[#8B4513] text-white text-left">Metrics</th>
+                  <th className="px-4 py-2 bg-[#8B4513] text-white text-left">Before</th>
+                  <th className="px-4 py-2 bg-[#8B4513] text-white text-left">After</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(calculateDatasetStats(sampleDataset).before).map(([metric, value], index) => (
+                  <tr key={metric} className={index % 2 === 0 ? 'bg-[#FFF3E0]' : 'bg-white'}>
+                    <td className="px-4 py-2 border-b font-medium">{metric.charAt(0).toUpperCase() + metric.slice(1)}</td>
+                    <td className="px-4 py-2 border-b">{calculateDatasetStats(sampleDataset).before[metric]}</td>
+                    <td className="px-4 py-2 border-b">{calculateDatasetStats(sampleDataset).after[metric]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
 
         {/* Preprocessing Options - Right Column (1/3) */}
         <div className="w-1/3 bg-white rounded-lg p-6 shadow-sm">
-          <h3 className="text-lg font-semibold text-[#8B4513] mb-4">
+          <h3 className="text-base font-semibold text-[#8B4513] mb-4">
             Apply data preprocessing techniques to clean and prepare your dataset.
           </h3>
           
           <div className="space-y-4">
             <div>
-              <button className="w-full py-2 bg-[#8B4513] text-white rounded-lg">
+              <button className="w-full py-1.5 bg-[#8B4513] text-white rounded-lg text-xs">
                 Handle Missing Values
               </button>
               {renderOptions('missingValues')}
             </div>
 
             <div>
-              <button className="w-full py-2 bg-[#8B4513] text-white rounded-lg">
+              <button className="w-full py-1.5 bg-[#8B4513] text-white rounded-lg text-xs">
                 Remove Duplicates
               </button>
               {renderOptions('duplicates')}
             </div>
 
             <div>
-              <button className="w-full py-2 bg-[#8B4513] text-white rounded-lg">
+              <button className="w-full py-1.5 bg-[#8B4513] text-white rounded-lg text-xs">
                 Remove Outliers
               </button>
               {renderOptions('outliers')}
             </div>
 
             <div>
-              <button className="w-full py-2 bg-[#8B4513] text-white rounded-lg">
+              <button className="w-full py-1.5 bg-[#8B4513] text-white rounded-lg text-xs">
                 Scale Data
               </button>
               {renderOptions('scaling')}
             </div>
 
-
             <button 
               onClick={() => handleSendRequest(operation)}
-              className={`w-full mt-4 py-2 text-[#8B4513] rounded-lg transition-colors ${
+              className={`w-full py-1.5 text-xs text-[#8B4513] rounded-lg transition-colors ${
                 Object.values(selectedTypes).some(type => type) && 
                 Object.values(selectedMethods).some(method => method)
                   ? 'bg-green-600 hover:bg-green-700'
