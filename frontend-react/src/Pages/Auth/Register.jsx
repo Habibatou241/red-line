@@ -2,38 +2,50 @@ import React from 'react';
 
 const Register = ({ onLoginClick }) => {
   return (
-    <div className="min-h-screen bg-[#F5F5DC] py-6">
-      <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold text-center mb-1">Inscrivez-vous pour continuer.</h2>
-        <p className="text-center text-gray-600 mb-4 text-sm">Veuillez remplir les champs suivants pour vous inscrire.</p>
+    <div className="min-h-screen bg-[#f6d1b6] py-6">
+      <div className="max-w-md mx-auto bg-[#FFF3E0] p-6 rounded-lg shadow-md">
+        <h2 className="text-xl font-bold text-[#8B4513] text-center mb-1">Inscrivez-vous pour continuer.</h2>
+        <p className="text-center text-[#8B4513] mb-4 text-sm">Veuillez remplir les champs suivants pour vous inscrire.</p>
 
         <form className="space-y-3">
           <div>
+            <label className="block text-[#8B4513] text-sm mb-1">
+              Prénom
+            </label>
             <input
               type="text"
-              placeholder="Prénom"
-              className="w-full px-3 py-1.5 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E3C58]"
+              placeholder="Entrez votre prénom"
+              className="w-full px-3 py-1.5 border rounded-md bg-[#fad9c1] focus:outline-none focus:ring-2 focus:ring-[#1E3C58]"
             />
           </div>
           <div>
+            <label className="block text-[#8B4513] text-sm mb-1">
+              Nom
+            </label>
             <input
               type="text"
-              placeholder="Nom"
-              className="w-full px-3 py-1.5 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E3C58]"
+              placeholder="Entrez votre nom"
+              className="w-full px-3 py-1.5 border rounded-md bg-[#fad9c1] focus:outline-none focus:ring-2 focus:ring-[#1E3C58]"
             />
           </div>
           <div>
+            <label className="block text-[#8B4513] text-sm mb-1">
+              Email
+            </label>
             <input
               type="email"
-              placeholder="Email"
-              className="w-full px-3 py-1.5 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E3C58]"
+              placeholder="Entrez votre email"
+              className="w-full px-3 py-1.5 border rounded-md bg-[#fad9c1] focus:outline-none focus:ring-2 focus:ring-[#1E3C58]"
             />
           </div>
           <div>
+            <label className="block text-[#8B4513] text-sm mb-1">
+              Mot de passe
+            </label>
             <input
               type="password"
-              placeholder="Mot de passe"
-              className="w-full px-3 py-1.5 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E3C58]"
+              placeholder="Entrez votre mot de passe"
+              className="w-full px-3 py-1.5 border rounded-md bg-[#fad9c1] focus:outline-none focus:ring-2 focus:ring-[#1E3C58]"
             />
           </div>
 
@@ -51,17 +63,17 @@ const Register = ({ onLoginClick }) => {
 
           <button
             type="submit"
-            className="w-full bg-[#1E3C58] text-white py-1.5 rounded-md hover:bg-[#2a5478] transition duration-300"
+            className="w-full bg-[#c0601c] text-white py-1.5 rounded-md hover:bg-[#db7c38] transition duration-300"
           >
             Rejoignez notre équipe
           </button>
         </form>
 
         <div className="mt-4 text-center">
-          <p className="text-gray-600 text-sm">Vous avez déjà un compte?</p>
+          <p className="text-[#8B4513] text-sm">Vous avez déjà un compte?</p>
           <button 
             onClick={onLoginClick}
-            className="text-[#1E3C58] font-semibold hover:underline mt-0.5 text-sm"
+            className="text-[#8B4513] font-semibold hover:underline mt-0.5 text-sm"
           >
             Connectez-vous
           </button>

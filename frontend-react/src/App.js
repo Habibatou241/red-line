@@ -1,42 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './Pages/Hero';
 import Register from './Pages/Auth/Register';
-import Login from './Pages/Auth/Login';
+import Login from './Pages/NavbarSections/Login';
 import Dashboard from './Pages/Dashboard';
 import Projects from './components/Projects';
+import About from './Pages/NavbarSections/About';
+import Technology from './Pages/NavbarSections/Technology';
+import Services from './Pages/NavbarSections/Services';
+import Contact from './Pages/NavbarSections/Contact';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('hero');
-
-  const renderPage = () => {
-    switch(currentPage) {
-      case 'hero':
-        return <Hero onRegister={() => setCurrentPage('register')} />;
-      case 'register':
-        return <Register onLoginClick={() => setCurrentPage('login')} />;
-      case 'login':
-        return <Login onLoginSuccess={() => setCurrentPage('dashboard')} />;
-      case 'dashboard':
-        return <Dashboard onProjectsClick={() => setCurrentPage('projects')} />;
-      case 'projects':
-        return <Projects />;
-      // Dans votre switch case, ajoutez :
-      case 'about':
-        return <About />;
-      default:
-        return <Hero onRegister={() => setCurrentPage('register')} />;
-    }
-  };
-
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar 
-        onLoginClick={() => setCurrentPage('login')} 
-        showNavigation={currentPage !== 'dashboard'}
-      />
+      <Navbar showNavigation={true} />
       <main className="flex-grow">
-        {renderPage()}
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/technology" element={<Technology />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/projects" element={<Projects />} />
+        </Routes>
       </main>
     </div>
   );

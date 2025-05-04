@@ -53,9 +53,9 @@ const Services = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white py-16">
+    <div className="min-h-screen h-[1260px] bg-[#FFF3E0] py-5">
       <div className="container mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-16">
+        <h1 className="text-3xl font-bold text-center text-[#8B4513] mb-16">
           SERVICES
         </h1>
 
@@ -79,21 +79,23 @@ const Services = () => {
                 </button>
 
                 {/* Content */}
-                <div className={`flex ${service.position === 'left' ? 'justify-start' : 'justify-end'} items-center`}>
-                  <div className={`w-5/12 ${service.position === 'right' && 'order-2'}`}>
-                    <div className={`p-4 ${service.color} bg-opacity-10 rounded-lg`}>
-                      <p className={`text-sm ${service.color.replace('bg-', 'text-')}`}>
+                <div className={`flex ${service.position === 'left' ? 'justify-start' : 'justify-end'} items-start h-28`}>
+                  <div className={`w-5/12 ${service.position === 'right' && 'order-2'} relative`}>
+                    <div className={`p-4 ${service.color} bg-opacity-10 rounded-lg absolute w-full`}>
+                      <p className={`text-sm ${service.color.replace('bg-', 'text-')} font-semibold`}>
                         {service.title}
                       </p>
-                      {activeService === service.id && (
-                        <p className={`mt-2 text-sm text-gray-600 transition-all duration-300`}>
+                      <div className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                        activeService === service.id ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'
+                      }`}>
+                        <p className="text-sm text-gray-600 mt-2">
                           {service.description}
                         </p>
-                      )}
+                      </div>
                     </div>
                   </div>
                   {/* Colored Bar */}
-                  <div className={`w-5/12 h-2 ${service.color} ${service.position === 'left' ? 'ml-auto' : 'mr-auto'}`}></div>
+                  <div className={`w-5/12 h-2 ${service.color} ${service.position === 'left' ? 'ml-auto' : 'mr-auto'} mt-6`}></div>
                 </div>
               </div>
             ))}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
+import Welcome from './DashboardSections/Welcome';
 import NewProject from './DashboardSections/NewProject';
 import MyProjects from './DashboardSections/MyProjects';
 import AddFile from './DashboardSections/AddFile';
@@ -12,10 +13,11 @@ import Regression from './DashboardSections/Regression';
 import Settings from './DashboardSections/Settings';
 
 const Dashboard = () => {
-  const [selectedSection, setSelectedSection] = useState('MyProjects');
+  const [selectedSection, setSelectedSection] = useState('welcome');
 
   const renderSection = () => {
     switch (selectedSection) {
+      case 'welcome': return <Welcome />;
       case 'NewProject': return <NewProject />;
       case 'MyProjects': return <MyProjects />;
       case 'AddFile': return <AddFile />;
@@ -26,12 +28,12 @@ const Dashboard = () => {
       case 'Classification': return <Classification />;
       case 'Regression': return <Regression />;
       case 'Settings': return <Settings />;
-      default: return <MyProjects />;
+      default: return <Welcome />;
     }
   };
 
   return (
-    <div className="flex h-screen bg-[#FFF8F0]">
+    <div className="flex h-screen bg-[#f6d1b6]">
       <Sidebar onSelectSection={setSelectedSection} />
       <div className="flex-1 p-6 overflow-y-auto">{renderSection()}</div>
     </div>
